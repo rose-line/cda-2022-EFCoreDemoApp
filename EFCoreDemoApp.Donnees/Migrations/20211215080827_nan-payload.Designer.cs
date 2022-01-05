@@ -3,14 +3,16 @@ using EFCoreDemoApp.Donnees;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EFCoreDemoApp.Donnees.Migrations
 {
     [DbContext(typeof(ActeurContext))]
-    partial class ActeurContextModelSnapshot : ModelSnapshot
+    [Migration("20211215080827_nan-payload")]
+    partial class nanpayload
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -31,27 +33,6 @@ namespace EFCoreDemoApp.Donnees.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Acteurs");
-                });
-
-            modelBuilder.Entity("EFCoreDemoApp.Domaine.Assistant", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("ActeurId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Nom")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ActeurId")
-                        .IsUnique();
-
-                    b.ToTable("Assistant");
                 });
 
             modelBuilder.Entity("EFCoreDemoApp.Domaine.Citation", b =>
@@ -109,15 +90,6 @@ namespace EFCoreDemoApp.Donnees.Migrations
                     b.ToTable("ActeurFilm");
                 });
 
-            modelBuilder.Entity("EFCoreDemoApp.Domaine.Assistant", b =>
-                {
-                    b.HasOne("EFCoreDemoApp.Domaine.Acteur", null)
-                        .WithOne("Assistant")
-                        .HasForeignKey("EFCoreDemoApp.Domaine.Assistant", "ActeurId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("EFCoreDemoApp.Domaine.Citation", b =>
                 {
                     b.HasOne("EFCoreDemoApp.Domaine.Acteur", "Acteur")
@@ -146,8 +118,6 @@ namespace EFCoreDemoApp.Donnees.Migrations
 
             modelBuilder.Entity("EFCoreDemoApp.Domaine.Acteur", b =>
                 {
-                    b.Navigation("Assistant");
-
                     b.Navigation("Citations");
                 });
 #pragma warning restore 612, 618
